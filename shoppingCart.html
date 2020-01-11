@@ -1,0 +1,117 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>使用Selector API实现购物车客户端计算</title>
+<meta charset="utf-8" />
+<style>
+	table{width:600px; text-align:center;
+		border-collapse:collapse;
+	}
+	td,th{border:1px solid black}
+	td[colspan="3"]{text-align:right;}
+</style>
+
+</head>
+<body>
+	<table id="data">
+		<thead>
+			<tr>
+				<th>商品名称</th>
+				<th>单价</th>
+				<th>数量</th>
+				<th>小计</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>iPhone6</td>
+				<td>¥4488.00</td>
+        <td>
+          <button>-</button>
+          <span>1</span>
+          <button>+</button>
+        </td>
+				<td>¥4488.00</td>
+			</tr>
+			<tr>
+				<td>iPhone6 plus</td>
+				<td>¥5288.00</td>
+				<td>
+          <button>-</button>
+          <span>1</span>
+          <button>+</button>
+				</td>
+				<td>¥5288.00</td>
+			</tr>
+			<tr>
+				<td>iPad Air 2</td>
+				<td>¥4288.00</td>
+        <td>
+          <button>-</button>
+          <span>1</span>
+          <button>+</button>
+        </td>
+				<td>¥4288.00</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="3">Total: </td>
+				<td>¥14064.00</td>
+			</tr>
+		</tfoot>
+	</table>
+  <script>
+		//1.查找触发事件的元素
+		var table=document.getElementById("data");
+		console.log(table);
+		var btns=table.querySelectorAll(
+			"tbody>tr>td>button"
+		);
+		//console.log(btns);
+		for(var btn of btns){
+		//2.绑定事件处理函数
+		//遍历btns类数组对象中的每个按钮
+		btn.onclick=function(){
+			//每遍历一个按钮,就为当前按钮对象的onclick事件属性赋值一个函数
+			//this.style.backgroundColor="red";
+			var span=this.parentNode.children[1];
+			//span.style.backgroundColor="red";
+			var n=parseInt(span.innerHTML);
+			//如果当前按钮的内容是+,就直接数量+1,否则如果数量>1,才数量-1
+				if(this.innerHTML=="+"){
+					n++;
+				}
+				else if(n>1){//判断数量是否大于1
+					n--;
+				}
+				span.innerHTML=n;
+				//找到小计
+				var sup=this
+				.parentNode
+				.nextElementSibling;
+				//找到单价
+				var price=parseFloat(
+					this.parentNode.previousElementSibling.innerHTML.slice(1)
+				);
+				//计算小计
+				sum=n*price;
+				sup.innerHTML=`¥${sum.toFixed(2)}`;
+				/************计算总计*************/
+				var lastTd=table.querySelector(
+					"tfoot>tr>td:last-child"
+				);
+				/*************找到小计******************/
+				var tds=table.querySelectorAll(
+					"tbody>tr>td:last-child"
+				);
+				var total=0;
+				for(var td of tds){
+					total+=parseFloat(td.innerHTML.slice(1));
+				}
+				lastTd.innerHTML=`¥${total.toFixed(2)}`;
+			}
+		}
+	</script>
+</body>
+</html>
