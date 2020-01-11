@@ -12,7 +12,7 @@ var secondse=document.querySelector(
       var oDate = new Date();//获取日期对象
       var oldTime = oDate.getTime();//现在距离1970年的毫秒数
       var newDate = new Date('2020/6/17 00:00:00');
-      var newTime = newDate.getTime();//2019年距离1970年的毫秒数
+      var newTime = newDate.getTime();//2020年距离1970年的毫秒数
       var second = Math.floor((newTime - oldTime) / 1000);//未来时间距离现在的秒数
       var day = Math.floor(second / 86400);//整数部分代表的是天；一天有24*60*60=86400秒 ；
       second = second % 86400;//余数代表剩下的秒数；
