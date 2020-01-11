@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>全选和取消全选</title>
+</head>
+<body>
+	<h2>管理员列表</h2>
+	<table border="1px" width="500px">
+	  <thead>
+		<tr>
+			<th><input type="checkbox"/>全选</th>
+			<th>管理员ID</th>
+			<th>姓名</th>
+			<th>操作</th>
+		</tr>
+	  </thead>
+	  <tbody>
+	  	<tr>
+	  		<td><input type="checkbox"/></td>
+	  		<td>1</td>
+	  		<td>Tester</td>
+	  		<td>修改 删除</td>
+	  	</tr>
+	  	<tr>
+	  		<td><input type="checkbox"/></td>
+	  		<td>2</td>
+	  		<td>Manager</td>
+	  		<td>修改 删除</td>
+	  	</tr>
+	  	<tr>
+	  		<td><input type="checkbox"/></td>
+	  		<td>3</td>
+	  		<td>Analyst</td>
+	  		<td>修改 删除</td>
+	  	</tr>
+	  	<tr>
+	  		<td><input type="checkbox"/></td>
+	  		<td>4</td>
+	  		<td>Admin</td>
+	  		<td>修改 删除</td>
+	  	</tr>
+	  </tbody>
+	</table>
+	<button>删除选定</button>
+	<script>
+		//DOM4步
+		//1.查找触发事件的元素
+		//找到全选按钮
+		var input=document.querySelector(
+			"table>thead>tr>th>input"
+		);
+		//2.绑定事件处理函数
+		input.onclick=function(){
+			//alert("疼");
+		//3.(在事件处理函数中)查找要修改的元素
+			//找到4个单选
+			var inputs=document.querySelectorAll(
+				"tbody>tr>td:first-child>input"
+			);
+			//console.log(inputs);
+			//只要保持全选按钮的checked属性和单选按钮的checked属性一致
+			for(var inp of inputs){
+				inp.checked=input.checked;
+				//4.修改元素
+			}
+		}
+		//本列中当所有的单选按钮都为选中状态,那么全选checked=true,有一个未选中,checked=""
+		//DOM4步
+		//1.查找触发事件的元素
+		var inputs=document.querySelectorAll(
+				"tbody>tr>td:first-child>input"
+			);
+		//2.绑定事件处理函数
+		for(var int of inputs){
+			int.onclick=function(){
+			//3.(在事件处理函数中)查找要修改的元素	
+		var input=document.querySelector(
+			"table>thead>tr>th>input"
+		);
+			//只要有一个单选未选中,querySeletor返回true
+		var chk=document.querySelector(
+			"tbody>tr>td:first-child>input:not(:checked)"
+		);
+			//4.修改元素
+			S//如果找不到，返回null
+		console.log(chk);
+			if(chk!==null){
+				input.checked="";
+			}else{input.checked=true;}
+			}
+		}
+		//点击删除选中全选按钮及单选按钮的checked=="";
+		//DOM4步
+		//1.查找触发事件的元素
+		//找到元素button
+		var btn=document.querySelector(
+			"button"
+		);
+		//console.log(btn);
+		//2.绑定事件处理函数
+		btn.onclick=function(){
+			//3.(在事件处理函数中)查找要修改的元素	
+			//全选按钮
+			var input=document.querySelector(
+				"table>thead>tr>th>input"
+			);
+			//单选按钮``
+			var inputs=document.querySelectorAll(
+				"tbody>tr>td:first-child>input"
+			);
+			//4.修改元素
+			input.checked="";
+			for(var inp of inputs){
+				inp.checked="";
+			}
+		}
+	</script>
+</body>
+</html>
