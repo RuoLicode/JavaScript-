@@ -1,0 +1,89 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>读取并修改元素的属性</title>
+<meta charset="utf-8" />
+<style>
+*{
+	margin:0;
+	padding: 0;
+}
+#tab li{
+	float: left; list-style: none;
+}
+#tab li a{
+  display:inline-block;
+  text-decoration:none;
+  width: 80px; height: 40px;
+	line-height: 40px;
+	text-align: center;
+  color:#000;
+}
+#container{
+	position: relative;
+}
+#content1,#content2,#content3{
+	width: 300px;
+	height: 100px;
+	padding:30px;
+	position: absolute;
+	top: 40px;
+	left: 0;
+}
+#tab li:first-child,#content1{
+	background-color: #ffcc00;
+}
+#tab li:first-child+li,#content2{
+	background-color: #ff00cc;
+}
+#tab li:first-child+li+li,#content3{
+	background-color: #00ccff;
+}</style>
+</head>
+<body>
+	<h2>实现多标签页效果</h2>
+  <div class="tabs">
+    <ul id="tab">
+      <li><a tag-chk="teg" href="javascript:;"data-content="content1">10元套餐</a></li>
+      <li><a tag-chk="teg" href="javascript:;"data-content="content2">30元套餐</a></li>
+      <li><a tag-chk="teg" href="javascript:;"data-content="content3">50元包月</a></li>
+    </ul>
+    <div id="container">
+      <div id="content1">
+        10元套餐详情：<br />&nbsp;每月套餐内拨打100分钟，超出部分2毛/分钟
+      </div>
+      <div id="content2">
+        30元套餐详情：<br />&nbsp;每月套餐内拨打300分钟，超出部分1.5毛/分钟
+      </div>
+      <div id="content3">
+        50元包月详情：<br />&nbsp;每月无限量随心打
+      </div>
+    </div>
+  </div>
+  <script>
+    //1.查找触发事件的元素
+    //找到属性为tag-chk并且属性值=tag的元素
+    var tags=document.querySelectorAll(
+      "[tag-chk=teg]"
+    );
+    //设置zIndex的值
+    var zIndex=10;
+    //2.绑定事件处理函数
+    for(var tag of tags){
+      tag.onclick=function(){
+        //3.(在事件处理函数中)查找要修改的元素
+        //找到属性名为data-content
+        var id=this.getAttribute("data-content");
+        //console.log(id);
+        //var id=this.dataset.content;
+        //通过id找到这个div
+        var div=document.getElementById(id);
+        //console.log(div);
+        zIndex++;
+        //4.修改元素
+        div.style.zIndex=zIndex;
+      }
+    }
+  </script>
+</body>
+</html>
