@@ -1,0 +1,52 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>取消与利用冒泡&制作简易计算器</title>
+<meta charset="utf-8"/>
+</head>
+<body>
+<div id="keys">
+	<button>1</button>
+	<button>2</button>
+	<button>3</button>
+	<button>4</button><br>
+	<button>C</button>
+	<button>+</button>
+	<button>-</button>
+	<button>=</button>
+</div>
+<textarea id="sc" style="resize:none;width:200px; height:50px;" readonly></textarea>
+<script>
+//1. 只在父元素上统一绑定一次事件处理函数
+keys.onclick=function(e){
+	//2. 用e.target代替this
+	//3. 只允许按钮触发事件
+	if(e.target.nodeName=="BUTTON"){
+		//e.target.style.backgroundColor="red";
+		//判断e.target的内容
+    if(e.target.innerHTML=="C"){
+      sc.innerHTML="";
+    }
+    	//如果是C
+			//就清除显示屏sc的内容
+			//如果是=
+			//如果显示屏sc的内容不为空
+    else if(e.target.innerHTML=="="&&sc.innerHTML!=""){
+        	//将显示屏sc的内容放入全局函数eval()中计算得到计算结果
+					//一旦发生错误，就捕获错误
+        try{
+          sc.innerHTML=eval(sc.innerHTML);
+        }catch(err){
+          alert("出错");
+          sc.innerHTML="";
+        }
+    }else{
+			//其余按钮
+				//将e.target的内容追加到显示屏sc的内容末尾
+        sc.innerHTML+=e.target.innerHTML;
+    }
+	}
+}
+</script>
+</body>
+</html>
