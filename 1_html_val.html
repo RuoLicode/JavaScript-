@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title> new document </title>
+  <meta charset="utf-8">
+ </head>
+ <body>
+	<h1>操作元素的内容和值</h1>
+	<form action="">
+		用户:<input name="uname">
+					<span id="uname-msg"></span><br>
+		密码:<input type="password" name="upwd">
+					<span id="upwd-msg"></span><br>
+		<input type="submit" value="提交注册信息">
+	</form>
+	<script src="js/jquery-1.11.3.js"></script>
+	<script>
+		var $txtName=$(":text");
+		var $txtpwd=$(":password");
+		$txtName.blur(function(){
+			var $reg=/^\w{6,9}$/;
+			vail.call(this,$reg,"用户名必须介于3~9位之间!");
+		});
+		function vail($reg,$errmsg){
+			var $txt=$(this);
+			//找到要修改的元素
+			var $span=$txt.next();
+			//修改元素
+			if($reg.test($txt.val())){
+				$span.html(`<img src='img/ok.png'>`)
+				return true;
+			}else{
+				$span.html(`<img src='img/err.png'>${$errmsg}`);
+				return false;
+			}
+		}
+		$txtpwd.blur(function(){
+			var $reg=/^\w{6,8}$/;
+			vail.call(this,$reg,"密码必须介于6~8位之间!");
+		});
+		//提交
+		//查找元素
+		var $btn=$(":submit");
+		$btn.click(function(e){
+			e.preventDefault();
+			//
+			var $bool=vail.call($txtName,/^\w{6,9}$/,"密码必须介于6~8位之间!");
+			if($bool==false){
+				$txtName.focus();
+			}else{
+				var $bool=vail.call($txtpwd,/^\w{6,9}$/,"密码必须介于6~8位之间!");}
+				if($bool==false){
+					$txtpwd.focus();
+				}else{
+					alert("通过");
+				}
+			}
+			
+		);
+	</script>
+ </body>
+</html>
